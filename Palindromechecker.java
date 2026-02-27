@@ -1,68 +1,37 @@
-import java.util.*;
+public class UseCase2PalindromeCheckerApp {
 
-public class UseCase13PalindromeCheckerApp {
+    static final String APP_VERSION = "1.0";
 
-    public static boolean iterativeCheck(String input) {
-        String str = input.replaceAll("\\s+", "").toLowerCase();
-        int left = 0;
-        int right = str.length() - 1;
-
-        while (left < right) {
-            if (str.charAt(left) != str.charAt(right))
-                return false;
-            left++;
-            right--;
-        }
-        return true;
-    }
-
-    public static boolean recursiveCheck(String str, int start, int end) {
-        if (start >= end)
-            return true;
-        if (str.charAt(start) != str.charAt(end))
-            return false;
-        return recursiveCheck(str, start + 1, end - 1);
-    }
-
-    public static boolean stackCheck(String input) {
-        String str = input.replaceAll("\\s+", "").toLowerCase();
-        Stack<Character> stack = new Stack<>();
-
-        for (int i = 0; i < str.length(); i++)
-            stack.push(str.charAt(i));
-
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) != stack.pop())
-                return false;
-        }
-        return true;
-    }
-
+    
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a string: ");
-        String input = scanner.nextLine();
+        System.out.println("======================================");
+        System.out.println("     HARDCODED PALINDROME CHECKER     ");
+        System.out.println("======================================");
+        System.out.println("Application Name : Palindrome Checker App");
+        System.out.println("Application Version : " + APP_VERSION);
+        System.out.println("======================================");
 
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
+       
+        String word = "madam";
 
-        long start1 = System.nanoTime();
-        boolean result1 = iterativeCheck(input);
-        long end1 = System.nanoTime();
+        System.out.println("Hardcoded String : " + word);
 
-        long start2 = System.nanoTime();
-        boolean result2 = recursiveCheck(normalized, 0, normalized.length() - 1);
-        long end2 = System.nanoTime();
+        
+        String reversed = "";
 
-        long start3 = System.nanoTime();
-        boolean result3 = stackCheck(input);
-        long end3 = System.nanoTime();
+        for (int i = word.length() - 1; i >= 0; i--) {
+            reversed = reversed + word.charAt(i);
+        }
 
-        System.out.println("\nResults:");
-        System.out.println("Iterative Result: " + result1 + " | Time: " + (end1 - start1) + " ns");
-        System.out.println("Recursive Result: " + result2 + " | Time: " + (end2 - start2) + " ns");
-        System.out.println("Stack Result: " + result3 + " | Time: " + (end3 - start3) + " ns");
+        
+        if (word.equals(reversed)) {
+            System.out.println("Result: The string is a PALINDROME.");
+        } else {
+            System.out.println("Result: The string is NOT a palindrome.");
+        }
 
-        scanner.close();
+        System.out.println("======================================");
+        System.out.println("Program Ended Successfully.");
     }
 }
