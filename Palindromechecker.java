@@ -1,6 +1,7 @@
 import java.util.Scanner;
+import java.util.Stack;
 
-public class UseCase4PalindromeCheckerApp {
+public class UseCase5PalindromeCheckerApp {
 
     static final String APP_VERSION = "1.0";
 
@@ -9,7 +10,7 @@ public class UseCase4PalindromeCheckerApp {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("======================================");
-        System.out.println(" CHAR ARRAY BASED PALINDROME CHECKER  ");
+        System.out.println("      STACK BASED PALINDROME CHECK    ");
         System.out.println("======================================");
         System.out.println("Application Name : Palindrome Checker App");
         System.out.println("Application Version : " + APP_VERSION);
@@ -19,27 +20,28 @@ public class UseCase4PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = scanner.nextLine();
 
-        
-        char[] characters = input.toCharArray();
+       
+        Stack<Character> stack = new Stack<>();
 
-        
-        int start = 0;
-        int end = characters.length - 1;
+       
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
+        }
 
         boolean isPalindrome = true;
 
-        while (start < end) {
+        
+        for (int i = 0; i < input.length(); i++) {
 
-            if (characters[start] != characters[end]) {
+            char poppedChar = stack.pop();
+
+            if (input.charAt(i) != poppedChar) {
                 isPalindrome = false;
                 break;
             }
-
-            start++;
-            end--;
         }
 
-       
+     
         if (isPalindrome) {
             System.out.println("Result: The string is a PALINDROME.");
         } else {
