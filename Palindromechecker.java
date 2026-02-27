@@ -1,26 +1,99 @@
-// UseCase1PalindromeCheckerApp.java
+import java.util.Scanner;
 
-// Class acts as a container for the application logic
-public class Palindromechecker {
+class UseCase8PalindromeCheckerApp {
 
-    // Application version (static variable)
-    static final String APP_VERSION = "1.0";
+   
+    static class Node {
+        char data;
+        Node next;
 
-    // Main method - Entry point of the Java application
-    public static void main(String[] args) {
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
 
+   
+    public static Node createLinkedList(String str) {
+        Node head = null, tail = null;
 
-        System.out.println("======================================");
-        System.out.println("     WELCOME TO PALINDROME CHECKER    ");
-        System.out.println("======================================");
+        for (int i = 0; i < str.length(); i++) {
+            Node newNode = new Node(str.charAt(i));
+
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+        return head;
+    }
+
+   
+    public static Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+        Node nextNode = null;
+
+        while (current != null) {
+            nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        return prev;
+    }
+
+  
+    public static boolean isPalindrome(Node head) {
+        if (head == null || head.next == null)
+            return true;
+
+        Node slow = head;
+        Node fast = head;
 
         
-        System.out.println("Application Name : Palindrome Checker App");
-        System.out.println("Application Version : " + APP_VERSION);
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
 
-        System.out.println("======================================");
-        System.out.println("Application Started Successfully...");
-        System.out.println("Ready for Palindrome Processing.");
-        System.out.println("======================================");
+       
+        Node secondHalf = reverse(slow);
+        Node firstHalf = head;
+
+        
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                return false;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
+
+   
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+       
+        input = input.replaceAll("\\s+", "").toLowerCase();
+
+        Node head = createLinkedList(input);
+
+        if (isPalindrome(head)) {
+            System.out.println("The given string is a Palindrome.");
+        } else {
+            System.out.println("The given string is NOT a Palindrome.");
+        }
+
+        scanner.close();
     }
 }
